@@ -2,6 +2,7 @@ from flask import Blueprint, request
 from models.customer import Customer, CustomerSchema
 from sqlalchemy.exc import IntegrityError
 from init import db, bcrypt
+
 customers_bp = Blueprint("customers", __name__, url_prefix="/customers")
 
 @customers_bp.route('/auth/register/', methods=['POST'])

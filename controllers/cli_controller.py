@@ -37,7 +37,7 @@ def seed_db():
         Customer(
             email='harvesterofsorrow@tallica.com',
             address='1, eat street, hamilton, 4009',
-            phone='5555555523',
+            phone=5555555523,
             password=bcrypt.generate_password_hash('foxtrot5').decode('utf-8')
         )
     ]
@@ -46,65 +46,57 @@ def seed_db():
     db.session.commit()
 
     items = [
-        Card(
-            title = 'Start the project',
-            description = 'Stage 1 - Create the database',
-            status = 'To Do',
-            priority = 'High',
-            date = date.today(),
-            user = users[0]
+        Item(
+            brand = 'arnotts\'s',
+            description = 'monte carlo',
+            department = 'grocery',
+            price =2,
+            in_stock = True
         ),
-        Card(
-            title = "SQLAlchemy",
-            description = "Stage 2 - Integrate ORM",
-            status = "Ongoing",
-            priority = "High",
-            date = date.today(),
-            user = users[0]
+        Item(
+            brand = 'ACME mills',
+            description = 'sourdough',
+            department = 'bakery',
+            price =4,
+            in_stock = True
         ),
-        Card(
-            title = "ORM Queries",
-            description = "Stage 3 - Implement several queries",
-            status = "Ongoing",
-            priority = "Medium",
-            date = date.today(),
-            user = users[1]
-        ),
-        Card(
-            title = "Marshmallow",
-            description = "Stage 4 - Implement Marshmallow to jsonify models",
-            status = "Ongoing",
-            priority = "Medium",
-            date = date.today(),
-            user = users[1]
+        Item(
+            brand = 'Java Java',
+            description = 'iced espresso',
+            department = 'perishables',
+            price =4,
+            in_stock = True,
+            on_promotion = True
         )
     ]
 
     db.session.add_all(items)
     db.session.commit()
 
-    comments = [
-        Comment(
-            message = 'Comment 1',
-            user = users[1],
-            card = cards[0],
-            date = date.today()
+    orders = [
+        Order(
+            date = date.today,
+            customer_id = 1,
+            item_id = 0,
+            total_amount = 5
         ),
-        Comment(
-            message = 'Comment 2',
-            user = users[0],
-            card = cards[0],
-            date = date.today()
+        Order(
+            date = date.today,
+            customer_id = 2,
+            item_id = 2,
+            total_amount = 3
         ),
-        Comment(
-            message = 'Comment 3',
-            user = users[0],
-            card = cards[2],
-            date = date.today()
+        Order(
+            date = date.today,
+            customer_id = 0,
+            item_id = 1,
+            total_amount = 6
         )
     ]
 
-    db.session.add_all(comments)
+    db.session.add_all(orders)
+    db.session.add_all(items)
+    db.session.add_all(customers)
     db.session.commit()
 
     print('Tables seeded')

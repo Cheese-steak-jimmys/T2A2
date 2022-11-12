@@ -1,6 +1,6 @@
 from marshmallow import fields
 
-from init import bcrypt, db, ma
+from init import db, ma
 
 
 class Customer(db.Model):
@@ -10,8 +10,8 @@ class Customer(db.Model):
     name = db.Column(db.String(100))
     email = db.Column(db.String(100), nullable=False, unique=True)
     address = db.Column(db.String(100), nullable=False)
-    phone = db.Column(db.integer(10))
-    password = db.Column(db.String, bcrypt.generate_password_hash, nullable=False)
+    phone = db.Column(db.Integer)
+    password = db.Column(db.String, nullable=False)
     is_member = db.Column(db.Boolean, default=False)
 
     items = db.relationship("Item", back_populates="customer", cascade="all, delete")

@@ -12,7 +12,7 @@ class Item(db.Model):
     department = db.Column(db.String, nullable=True)
     price = db.Column(db.Integer, nullable=False)
     in_stock = db.Column(db.Boolean, nullable=False)
-    promotion = db.Column(db.Boolean, default=False)
+    on_promotion = db.Column(db.Boolean, default=False)
 
     customer = db.relationship("Customer", back_populates="items")
     orders = db.relationship("Order", back_populates="items")
@@ -30,6 +30,6 @@ class ItemSchema(ma.Schema):
             "department",
             "in_stock",
             "price",
-            "promotion",
+            "on_promotion",
         )
         ordered = True
