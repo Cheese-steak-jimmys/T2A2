@@ -1,9 +1,11 @@
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 import os
-from init import db, ma
+
+from flask import Flask
+
 from controllers.items_controller import items_bp
 from controllers.orders_controller import orders_bp
+from init import db, ma
+
 # from controllers.cli_controller import db_commands
 # from init import bcrypt, db, jwt, ma
 
@@ -11,7 +13,11 @@ from controllers.orders_controller import orders_bp
 def create_app():
     app = Flask(__name__)
 
-    # app.config["JSON_SORT_KEYS"] = False
+    @app.errorhandler(404)
+    def not_found(err):
+        return {'ERROR': 'Dear User, Your Request Was Not Found, Please Try Again'}, 404
+
+    app.config["JSON_SORT_KEYS"] = False
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
     # app.config["JWT_SECRET_KEY"] = os.environ.get("JWT_SECRET_KEY")
 
