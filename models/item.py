@@ -14,7 +14,7 @@ class Item(db.Model):
     in_stock = db.Column(db.Boolean, nullable=False)
     on_promotion = db.Column(db.Boolean, default=False)
 
-    customer = db.relationship("Customer", back_populates="items")
+    # customer = db.relationship("Customer", back_populates="items")
     orders = db.relationship("Order", back_populates="items")
 
 

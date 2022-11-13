@@ -23,7 +23,7 @@ def drop_db():
 def seed_db():
     customers = [
         Customer(
-            email='male@mail.com.au',
+            email='maleee@mail.com.au',
             address='42, wallaby way, sydney, 2000',
             password=bcrypt.generate_password_hash('indigo1').decode('utf-8'),
             is_member=True
@@ -37,7 +37,7 @@ def seed_db():
         Customer(
             email='harvesterofsorrow@tallica.com',
             address='1, eat street, hamilton, 4009',
-            phone=5555555523,
+            phone=555555552.3,
             password=bcrypt.generate_password_hash('foxtrot5').decode('utf-8')
         )
     ]
@@ -75,22 +75,22 @@ def seed_db():
 
     orders = [
         Order(
-            date = date.today,
-            customer_id = 1,
-            item_id = 0,
-            total_amount = 5
+            date = date.today(),
+            # customer_id = (),
+            # item_id = (),
+            
         ),
         Order(
-            date = date.today,
-            customer_id = 2,
-            item_id = 2,
-            total_amount = 3
+            date = date.today(),
+            # customer_id = (),
+            # item_id = (),
+            
         ),
         Order(
-            date = date.today,
-            customer_id = 0,
-            item_id = 1,
-            total_amount = 6
+            date = date.today(),
+            # customer_id = (),
+            # item_id = (),
+            
         )
     ]
 

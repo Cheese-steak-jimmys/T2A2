@@ -3,17 +3,13 @@ from flask import Blueprint
 from init import db
 from models.item import Item, ItemSchema
 
-items_bp = Blueprint("items", __name__, url_prefix="/items")
+items_bp = Blueprint('items', __name__, url_prefix='/items')
 
 
-@items_bp.route("/")
+@items_bp.route('/')
 # @jwt_required()
-def all_items():
-    # return 'These are your items.'
-    # if not authorized():
-    #     return {'ERROR': 'You must be an administrator to have access'}, 401
-
-    stmt = db.select(Item).order_by(Item.brand.desc(), Item.price)
+def get_all_items():
+    stmt = db.select(Item)
     items = db.session.scalars(stmt)
     return ItemSchema(many=True).dump(items)
 

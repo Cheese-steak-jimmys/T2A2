@@ -25,21 +25,3 @@ def auth_register():
         return CustomerSchema(exclude=['password']).dump(Customer), 201
     except IntegrityError:
         return{'ERROR': 'The Email Or Phone Number Are Already In Use, Please Use Another'}, 409
-
-# @app.route('/auth/register/', methods=['POST'])
-# def auth_register():
-#     try:
-#         # create a new customer
-#         customer = Customer(
-#             email = request.json['email']
-#             password = bcrypt.generate_password_hash(request.json['password']).decode('utf8'),
-#             name = request.json['name']
-#         )
-#             # Add user to database
-#         db.session.add(customer)
-#         db.session.commit()
-
-#         # response
-#         return CustomerSchema(exclude=['password']).dump(Customer), 201
-#     except IntegrityError:
-#         return{'ERROR': 'This Email Is Already In Use'}, 409

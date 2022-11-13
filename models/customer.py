@@ -14,7 +14,7 @@ class Customer(db.Model):
     password = db.Column(db.String, nullable=False)
     is_member = db.Column(db.Boolean, default=False)
 
-    items = db.relationship("Item", back_populates="customer", cascade="all, delete")
+    # items = db.relationship("Item", back_populates="customer", cascade="all, delete")
     orders = db.relationship("Order", back_populates="customer", cascade="all, delete")
 
 
