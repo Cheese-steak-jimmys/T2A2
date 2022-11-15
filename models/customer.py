@@ -13,13 +13,17 @@ class Customer(db.Model):
     phone = db.Column(db.Integer)
     password = db.Column(db.String, nullable=False)
     is_member = db.Column(db.Boolean, default=False)
+    is_admin = db.Column(db.Boolean, default=False)
 
-    # items = db.relationship("Item", back_populates="customer", cascade="all, delete")
+    # order_id = db.Column(db.Integer, db.ForeignKey("orders.id"))
+    store_id = db.Column(db.Integer, db.ForeignKey("stores.id"), nullable=False)
+
+    store = db.relationship("Store", back_populates="customer", cascade="all, delete")
     orders = db.relationship("Order", back_populates="customer", cascade="all, delete")
 
 
 class CustomerSchema(ma.Schema):
-    items = fields.List(fields.Nested("ItemSchema", exclude=["customer"]))
+    store = fields.List(fields.Nested("StoreSchema", exclude=["customer"]))
     orders = fields.List(fields.Nested("OrderSchema", exclude=["customer"]))
 
     class Meta:
@@ -33,5 +37,6 @@ class CustomerSchema(ma.Schema):
             "is_member",
             "items",
             "orders",
+            "is_admin",
         )
-        ordered = True
+        # ordered = True

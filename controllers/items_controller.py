@@ -14,13 +14,11 @@ def get_all_items():
     return ItemSchema(many=True).dump(items)
 
 
-@items_bp.route('/int:id>')
+@items_bp.route('/<int:id>')
 def one_item(id):
     stmt = db.select(Item).filter_by(id=id)
     item = db.session.scalar(stmt)
     if item:
-        return ItemSchema(many=True).dump(item)
+        return ItemSchema(many=False).dump(item)
     else:
-        return {'ERROR': f'No item found with ID {id}'}, 404
-
-
+        return {' ! ERROR ': f'NOT FOUND. Sorry, there\'s no item with ID {id}, please try another'}, 404

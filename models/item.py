@@ -10,16 +10,20 @@ class Item(db.Model):
     brand = db.Column(db.String, nullable=False)
     description = db.Column(db.String, nullable=False)
     department = db.Column(db.String, nullable=True)
-    price = db.Column(db.Integer, nullable=False)
+    price = db.Column(db.Float, nullable=False)
     in_stock = db.Column(db.Boolean, nullable=False)
     on_promotion = db.Column(db.Boolean, default=False)
 
-    # customer = db.relationship("Customer", back_populates="items")
-    orders = db.relationship("Order", back_populates="items")
+    # order_id = db.Column(db.Integer, db.ForeignKey("orders.id"))
+    # store_id = db.Column(db.Integer, db.ForeignKey("stores.id"))
+    
+
+    store = db.relationship("store", back_populates="items", cascade="all, delete")
+    orders = db.relationship("Order", back_populates="items", cascade="all, delete")
 
 
 class ItemSchema(ma.Schema):
-    customer = fields.Nested("Schema", only=["customer_id"])
+    # store = fields.Nested("StoreSchema", only=["suburb"])
     orders = fields.List(fields.Nested("OrderSchema", exclude=["total_amount"]))
 
     class Meta:

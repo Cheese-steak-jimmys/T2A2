@@ -1,7 +1,6 @@
 import os
 
 from flask import Flask
-# from flask_selfdoc import Autodoc
 from marshmallow.exceptions import ValidationError
 
 from controllers.auth_controller import auth_bp
@@ -16,7 +15,7 @@ def create_app():
 
     @app.errorhandler(404)
     def not_found(err):
-        return {"ERROR": "Dear User, Your Request Was Not Found, Please Try Again"}, 404
+        return {"ERROR": "Dear Customer, Your Request Was Not Found, Please Try Again"}, 404
 
     @app.errorhandler(ValidationError)
     def validation_error(err):
@@ -47,11 +46,6 @@ def create_app():
     app.register_blueprint(items_bp)
     app.register_blueprint(orders_bp)
     app.register_blueprint(auth_bp)
-    # app.register_blueprint(customers_bp)
+   
 
     return app
-
-
-# @app.route('/documentation')
-# def documentation():
-#     return auto.html()
