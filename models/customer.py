@@ -16,27 +16,27 @@ class Customer(db.Model):
     is_admin = db.Column(db.Boolean, default=False)
 
     # order_id = db.Column(db.Integer, db.ForeignKey("orders.id"))
-    store_id = db.Column(db.Integer, db.ForeignKey("stores.id"), nullable=False)
+    store_id = db.Column(db.Integer, db.ForeignKey("stores.id"))
 
-    store = db.relationship("Store", back_populates="customer", cascade="all, delete")
+    store = db.relationship("Store", back_populates="customers")
     orders = db.relationship("Order", back_populates="customer", cascade="all, delete")
 
 
 class CustomerSchema(ma.Schema):
-    store = fields.List(fields.Nested("StoreSchema", exclude=["customer"]))
+    store = fields.Nested("StoreSchema")
     orders = fields.List(fields.Nested("OrderSchema", exclude=["customer"]))
 
     class Meta:
         fields = (
             "id",
+            "store",
             "name",
             "email",
             "address",
             "phone",
             "password",
             "is_member",
-            "items",
-            "orders",
-            "is_admin",
+            "is_admin"
+            "orders"
         )
-        # ordered = True
+        ordered = True

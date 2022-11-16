@@ -15,20 +15,21 @@ class Item(db.Model):
     on_promotion = db.Column(db.Boolean, default=False)
 
     # order_id = db.Column(db.Integer, db.ForeignKey("orders.id"))
-    # store_id = db.Column(db.Integer, db.ForeignKey("stores.id"))
+    store_id = db.Column(db.Integer, db.ForeignKey("stores.id"))
     
 
-    store = db.relationship("store", back_populates="items", cascade="all, delete")
+    store = db.relationship("Store", back_populates="items", cascade="all, delete")
     orders = db.relationship("Order", back_populates="items", cascade="all, delete")
 
 
 class ItemSchema(ma.Schema):
-    # store = fields.Nested("StoreSchema", only=["suburb"])
-    orders = fields.List(fields.Nested("OrderSchema", exclude=["total_amount"]))
+    stores = fields.Nested("StoreSchema", only=["store_id"])
+    orders = fields.List(fields.Nested("OrderSchema", exclude=["item"]))
 
     class Meta:
         fields = (
             "id",
+            "stores"
             "brand",
             "description",
             "department",

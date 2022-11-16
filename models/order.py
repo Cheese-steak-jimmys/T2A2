@@ -14,22 +14,16 @@ class Order(db.Model):
     store_id = db.Column(db.Integer, db.ForeignKey("stores.id"))
     item_id = db.Column(db.Integer, db.ForeignKey("items.id"))
 
-    customer = db.relationship("Customer", back_populates="orders", cascade="all, delete")
+    store = db.relationship("Store", back_populates="orders")
+    customer = db.relationship("Customer", back_populates="orders")
     items = db.relationship("Item", back_populates="orders", cascade="all, delete")
-    store = db.relationship("Store", back_populates="orders", cascade="all, delete")
 
 
 class OrderSchema(ma.Schema):
-    customer = fields.Nested("CustomerSchema", only=["name", "email"])
-    items = fields.List(fields.Nested("ItemSchema", exclude=["order"]))
-    store = fields.Nested("StoreSchema")
+    customer = fields.Nested("CustomerSchema", exclude=["password", "is_admin"])
+    store = fields.Nested("StoreSchema", exclude=["order"])
+    items = fields.List(fields.Nested("ItemSchema", exclude=["in_stock"]))
 
     class Meta:
-        fields = (
-            "id",
-            "customer_id",
-            "date",
-            "item_id",
-            "delivery"
-        )
+        fields = ("id", "customer_id", "store", "date", "items", "delivery")
         ordered = True

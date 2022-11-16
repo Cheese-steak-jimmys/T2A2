@@ -11,25 +11,19 @@ class Store(db.Model):
     suburb = db.Column(db.String(100), nullable=False)
     phone = db.Column(db.Integer)
 
-    order_id = db.Column(db.Integer, db.ForeignKey("orders.id"))
-    item_id = db.Column(db.Integer, db.ForeignKey("items.id"))
+    # customer_id = db.Column(db.Integer, db.ForeignKey("customers.id"))
+    # order_id = db.Column(db.Integer, db.ForeignKey("orders.id"))
+    # item_id = db.Column(db.Integer, db.ForeignKey("items.id"))
 
     items = db.relationship("Item", back_populates="store", cascade="all, delete")
+    customers = db.relationship("Customer", back_populates="store", cascade="all, delete")
     orders = db.relationship("Order", back_populates="store", cascade="all, delete")
-
-
-class CustomerSchema(ma.Schema):
-    items = fields.List(fields.Nested("ItemSchema", exclude=["store"]))
-    orders = fields.List(fields.Nested("OrderSchema", exclude=["store"]))
+    
+class StoreSchema(ma.Schema):
+    items = fields.List(fields.Nested("ItemSchema", exclude=["stores"]))
+    orders = fields.List(fields.Nested("OrderSchema"))
+    customers = fields.List(fields.Nested("CustomerSchema", exclude=["password"]))
 
     class Meta:
-        fields = (
-            "id",
-            "suburb",
-            "email",        
-            "phone",     
-            "items",
-            "orders",
-           
-        )
+        fields = ("id", "suburb", "email", "phone", "customers", "items", "orders")
         # ordered = True

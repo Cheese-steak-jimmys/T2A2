@@ -7,6 +7,7 @@ from controllers.auth_controller import auth_bp
 from controllers.cli_controller import db_commands
 from controllers.items_controller import items_bp
 from controllers.orders_controller import orders_bp
+from controllers.stores_controller import stores_bp
 from init import bcrypt, db, jwt, ma
 
 
@@ -15,7 +16,9 @@ def create_app():
 
     @app.errorhandler(404)
     def not_found(err):
-        return {"ERROR": "Dear Customer, Your Request Was Not Found, Please Try Again"}, 404
+        return {
+            "ERROR": "Dear Customer, Your Request Was Not Found, Please Try Again"
+        }, 404
 
     @app.errorhandler(ValidationError)
     def validation_error(err):
@@ -46,6 +49,6 @@ def create_app():
     app.register_blueprint(items_bp)
     app.register_blueprint(orders_bp)
     app.register_blueprint(auth_bp)
-   
+    app.register_blueprint(stores_bp)
 
     return app
