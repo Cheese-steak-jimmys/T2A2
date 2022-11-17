@@ -10,11 +10,7 @@ class Store(db.Model):
     email = db.Column(db.String(100), nullable=False, unique=True)
     suburb = db.Column(db.String(100), nullable=False)
     phone = db.Column(db.Integer)
-
-    # customer_id = db.Column(db.Integer, db.ForeignKey("customers.id"))
-    # order_id = db.Column(db.Integer, db.ForeignKey("orders.id"))
-    # item_id = db.Column(db.Integer, db.ForeignKey("items.id"))
-
+  
     items = db.relationship("Item", back_populates="store", cascade="all, delete")
     customers = db.relationship("Customer", back_populates="store", cascade="all, delete")
     orders = db.relationship("Order", back_populates="store", cascade="all, delete")

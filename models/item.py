@@ -18,7 +18,7 @@ class Item(db.Model):
     store_id = db.Column(db.Integer, db.ForeignKey("stores.id"))
     
 
-    store = db.relationship("Store", back_populates="items", cascade="all, delete")
+    store = db.relationship("Store", back_populates="items")
     orders = db.relationship("Order", back_populates="items", cascade="all, delete")
 
 

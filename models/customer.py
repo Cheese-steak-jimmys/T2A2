@@ -14,8 +14,7 @@ class Customer(db.Model):
     password = db.Column(db.String, nullable=False)
     is_member = db.Column(db.Boolean, default=False)
     is_admin = db.Column(db.Boolean, default=False)
-
-    # order_id = db.Column(db.Integer, db.ForeignKey("orders.id"))
+    acc_active = db.Column(db.Boolean, default=True, nullable=False)
     store_id = db.Column(db.Integer, db.ForeignKey("stores.id"))
 
     store = db.relationship("Store", back_populates="customers")

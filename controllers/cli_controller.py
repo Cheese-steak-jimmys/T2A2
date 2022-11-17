@@ -32,6 +32,7 @@ def seed_db():
             address="42, wallaby way, sydney, 2000",
             password=bcrypt.generate_password_hash("indigo1").decode("utf-8"),
             is_member=True,
+            acc_active=True
             # store_id= 1
         ),
         Customer(
@@ -39,6 +40,7 @@ def seed_db():
             address="12, pine Street, redcliff, 4000",
             email="baneofbris@mail.com",
             password=bcrypt.generate_password_hash("2468").decode("utf-8"),
+            acc_active=True
             # store_id= 3
         ),
         Customer(
@@ -46,6 +48,7 @@ def seed_db():
             address="1, eat street, hamilton, 4009",
             phone=555555552.3,
             password=bcrypt.generate_password_hash("foxtrot5").decode("utf-8"),
+            acc_active=True
             # store_id= 1
         ),
         Customer(
@@ -56,6 +59,7 @@ def seed_db():
             password=bcrypt.generate_password_hash("foxtrot5").decode("utf-8"),
             is_member=True,
             is_admin=True,
+            acc_active=True
             # store_id= 3
         ),
     ]
