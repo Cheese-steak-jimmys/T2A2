@@ -1,7 +1,7 @@
 from datetime import date
 
 from flask import Blueprint, request
-from flask_jwt_extended import get_jwt_identity, jwt_required
+from flask_jwt_extended import jwt_required
 from controllers.auth_controller import authorize
 from init import db
 from models.order import Order, OrderSchema

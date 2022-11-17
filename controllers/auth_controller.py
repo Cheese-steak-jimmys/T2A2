@@ -44,16 +44,15 @@ def auth_register():
 
 @auth_bp.route("/login", methods=["POST"])
 def auth_login():
-    # Find a user by email address
+    # Find a customer by email address
     stmt = db.select(Customer).filter_by(email=request.json["email"])
     
     customer = db.session.scalar(stmt)
     
-    # If user exists and password is correct
+    # If customerser exists and password is correct
     if customer and bcrypt.check_password_hash(
         customer.password, request.json["password"]
     ):
-        # return UserSchema(exclude=['password']).dump(user)
         token = create_access_token(
             identity=str(customer.id), expires_delta=timedelta(days=1)
         )

@@ -1,13 +1,15 @@
 from flask import Blueprint, request
-# from sqlalchemy.exc import IntegrityError
+from sqlalchemy.exc import IntegrityError
+from flask_jwt_extended import jwt_required
 from init import db
+from controllers.auth_controller import authorize
 from models.item import Item, ItemSchema
 
 items_bp = Blueprint('items', __name__, url_prefix='/items')
 
 
 @items_bp.route('/')
-# @jwt_required()
+@jwt_required()
 def get_all_items():
     stmt = db.select(Item)
     items = db.session.scalars(stmt)
@@ -42,15 +44,11 @@ def create_new_item():
 
     # response~
     return ItemSchema(many=False).dump(Item), 201
-    # except IntegrityError:
-    #     return {
-    #         "ERROR": "Only An Admin Can Create A New Item"
-    #     }, 409
 
 @items_bp.route('/<int:id>/', methods=['DELETE'])
-# @jwt_required()
+@jwt_required()
 def delete_one_item(id):
-    # authorize()
+    authorize()
 
     stmt = db.select(Item).filter_by(id=id)
     item = db.session.scalar(stmt)
